@@ -1,0 +1,40 @@
+//------------------------------------------------
+//--- 010 Editor v9.0.2 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+
+struct header {
+    char FileVersion[30];
+    char ModelName[20];
+} headerInfo;
+
+uint32 boneframecount;
+uint32 expframecount;
+
+struct bone_info {
+    char BoneName[15];
+    uint32 BoneFrame;
+    float BoneTransX;
+    float BoneTransY;
+    float BoneTransZ;
+    float BoneRotX;
+    float BoneRotY;
+    float BoneRotZ;
+    float BoneRotW;
+    byte Interpolation[64];
+} BoneData[boneframecount];
+
+struct frame_info {
+    char ExpName[15];
+    uint32 ExpFrame;
+    float ExpValue;
+} frame_data[expframecount];
+
