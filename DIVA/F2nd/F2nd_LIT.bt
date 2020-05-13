@@ -1,0 +1,50 @@
+//------------------------------------------------
+//--- 010 Editor v9.0.2 Binary Template
+//
+//      File: *.lit
+//   Authors: ThatRandomLurker (Koren Konder Figured out how the files are structured, so mostly his work honestly :ThisTBH:
+//   Version: 0.1
+//   Purpose: Reading F2nd Light Parameter Files
+//  Category: Game File Reading
+// File Mask: *.lit
+//  ID Bytes: 4C 49 54 43 (LITC)
+//   History: Made the thing, it kinda works, not very good
+//------------------------------------------------
+BigEndian();
+
+struct entire_file {
+    FSeek(0x48);
+    INT32 count;
+    INT32 unk01;
+    INT32 unk02;
+    INT32 unk03;
+    INT32 unk04;
+    INT32 unk05;
+    local int32 RealCount = ( unk02 + 1 );
+    struct light_table {
+        INT32 ID <name="ID">;
+        byte Flags_one <name="Flag One">;
+        byte Flags_two <name="Flag Two">;
+        byte Flags_thr <name="Flag Three">;
+        byte Flags_fou <name="Flag Four">;
+        INT32 Type <name="Type">;
+        FLOAT Normalized_Ambient_R <name="Ambient Red">;
+        FLOAT Normalized_Ambient_G <name="Ambient Green">;
+        FLOAT Normalized_Ambient_B <name="Ambient Blue">;
+        FLOAT Normalized_Ambient_I <name="Ambient Intensity">;
+        FLOAT Normalized_Diffuse_R <name="Diffuse Red">;
+        FLOAT Normalized_Diffuse_G <name="Diffuse Green">;
+        FLOAT Normalized_Diffuse_B <name="Diffuse Blue">;
+        FLOAT Normalized_Diffuse_I <name="Diffuse Intensity">;
+        FLOAT Normalized_Specular_R <name="Specular Red">;
+        FLOAT Normalized_Specular_G <name="Specular Green">;
+        FLOAT Normalized_Specular_B <name="Specular Blue">;
+        FLOAT Normalized_Specular_I <name="Specular Intensity">;
+        FLOAT Position_X <name="Position X">;
+        FLOAT Position_Y <name="Position Y">;
+        FLOAT Position_Z <name="Position Z">;
+        FLOAT Curve_X <name="ToneCurve X">;
+        FLOAT Curve_Y <name="ToneCurve Y">;
+        FLOAT Curve_Z <name="ToneCurve Z">;
+    } light_table_data[RealCount];
+} file_data;
