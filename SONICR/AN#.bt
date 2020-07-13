@@ -23,6 +23,7 @@ local int32 framecount = ( ( ( ( length / 4 ) - 1 ) / 10 ) / 6 );
 
 struct file {
     int32 GroupCount;
+    local int32 framecount = ( ( ( ( length / 4 ) - 1 ) / GroupCount ) / 6 );
     struct part_group_anim_frame {
         struct animation { 
             //this is actually really clever, they stored the transforms and angles as BAMS
