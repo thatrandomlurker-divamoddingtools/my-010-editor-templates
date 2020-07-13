@@ -1,0 +1,45 @@
+//------------------------------------------------
+//--- 010 Editor v9.0.2 Binary Template
+//
+//      File:*AN#.BIN 
+//   Authors: ThatRandomLurker
+//   Version: 1.0
+//   Purpose: Read Sonic R Animation Files
+//  Category: Game Tools
+// File Mask: *.BIN
+//  ID Bytes: none
+//   History: learned the structure from SCHG, put it into a template, implemented BAMS conversion.
+//------------------------------------------------
+
+//this animation format is surprisingly simple, it's a group count for the mesh, and then it just iterates through sets of the group count
+//until it reaches the end of the file
+
+//as for reading it, you'll need to change the animationdata[*] to however many groups the file has
+//and the pgafdat[*] to the file size / 4 - 1 divided by group count / 6 (san1.bin is 3172 bytes, 3172 / 4 = 793, 793 - 1 = 792, 792 / 11 = 72, 72 / 6 = 12)
+//complicated, yes. does it work, yes
+
+//also, here's a copy paste equation that you can put into google chrome if you want to simplify things:
+//(((File Size / 4) -1) / Group Count) /6
+//Remember to substitute the File Size with your file size, and group count with your group count
+
+struct file {
+    int32 GroupCount;
+    struct part_group_anim_frame {
+        struct animation { 
+            //this is actually really clever, they stored the transforms and angles as BAMS
+            //to increase precision since the saturn didn't support floating point values
+            int32 BamsTransTX <hidden=true>;
+            local float TransX = ( BamsTransTX * 360.0 / 65535.0 );
+            int32 BamsTransTY <hidden=true>;
+            local float TransY = ( BamsTransTY * 360.0 / 65535.0 );
+            int32 BamsTransTZ <hidden=true>;
+            local float TransZ = ( BamsTransTZ * 360.0 / 65535.0 );
+            int32 BamsRotRX <hidden=true>;
+            local float RotEulerX = ( BamsRotRX * 360.0 / 65535.0 );
+            int32 BamsRotRY <hidden=true>;
+            local float RotEulerY = ( BamsRotRY * 360.0 / 65535.0 );
+            int32 BamsRotRZ <hidden=true>;
+            local float RotEulerZ = ( BamsRotRZ * 360.0 / 65535.0 );
+        } animationdata[GroupCount] <optimize=false>;
+    } pgafdat[8] <optimize=false>;
+} filedata;
