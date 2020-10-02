@@ -17,7 +17,6 @@ struct header {
 } headerInfo;
 
 uint32 boneframecount;
-uint32 expframecount;
 
 struct bone_info {
     char BoneName[15];
@@ -31,6 +30,8 @@ struct bone_info {
     float BoneRotW;
     byte Interpolation[64];
 } BoneData[boneframecount];
+
+uint32 expframecount;
 
 struct frame_info {
     char ExpName[15];
